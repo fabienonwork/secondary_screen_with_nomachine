@@ -1,11 +1,11 @@
 
 # Create Virtual Screens and connect with NoMachine to it :)
 
-In this Repo I would like to share streight forwarded information 
+In this Repo I would like to share straight forwarded information 
 1. How to add multiple screen extensions
-2. How to connect with the software NoMachine after to those created screens.
+2. How to connect with the software [NoMachine](https://nomachine.com) after to those created screens.
 
-I will try to explain it streight forward, but in anycase if there are comments please let me know.
+I will try to explain it straight forward, but in any case if there are comments please let me know.
 So I could try to help you out.
 
 # 1. How to add multiple screen extensions
@@ -67,4 +67,25 @@ Make sure Virtuals exists after reboot with `xrandr`.
 Then you can follow step #1.3
 
 ## 1.3 Setup your screen
+To make this first step I use the command `gtf` to get the right values to be used in the next steps
+> _Gtf_ is a utility for calculating VESA GTF modes. Given the desired horizontal and vertical resolutions and refresh rate (in Hz)  
+  
+Read more at: [https://www.commandlinux.com/man-page/man1/gtf.1.html](https://www.commandlinux.com/man-page/man1/gtf.1.html)
 
+In my example I used this resolutions `1280 800` and refresh rate`60` 
+`gtf 1280 800 60`
+and I got this value back
+  
+
+    # 1280x800 @ 60.00 Hz (GTF) hsync: 49.68 kHz; pclk: 83.46 MHz
+      Modeline "1280x800_60.00"  83.46  1280 1344 1480 1680  800 801 804 828  -HSync +Vsync
+So now we need to add this information for the next step`"1280x800_60.00"  83.46  1280 1344 1480 1680  800 801 804 828  -HSync +Vsync`
+
+We're going to add new mode to xrandr
+`xrandr --newmode "1280x800_60.00"  83.46  1280 1344 1480 1680  800 801 804 828  -HSync +Vsync`
+
+After having done this we need to attach this to one of our Virtuals we create before to do so please proceed as following. In my example I am using VIRTUAL1.
+`xrandr --addmode VIRTUAL1 1280x800_60.00`
+
+So now we're ready to active the Virtual1 and add it in the right side of our current screen. This information can be used from xrandr.
+`xrandr --output VIRTUAL1 --mode 1280x800_60.00 --right-of eDP1`
