@@ -1,9 +1,10 @@
 
+
 # Create Virtual Screens and connect with NoMachine to it :)
 
 In this Repo I would like to share straight forwarded information 
 1. How to add multiple screen extensions
-2. How to connect with the software [NoMachine](https://nomachine.com) after to those created screens.
+2. How to connect with the software [NoMachine](https://nomachine.com) after to those created screens.In case you will connect only to one screen the free version is good enough, but if you would like to connect from multiple devices to those Virtual screen you need [NoMachine Enterprise Desktop](https://www.nomachine.com/enterprise-desktop) (and it's not so expensive ;) )
 
 I will try to explain it straight forward, but in any case if there are comments please let me know.
 So I could try to help you out.
@@ -39,21 +40,20 @@ First we need to see if you can directly start with it. For this we need to see 
            640x360       59.84    59.32    60.00  
         HDMI1 disconnected (normal left inverted right x axis y axis)
 
-You will get something like this above. 
-If yes you need to follow #1.2 
-If you bellow this you see information like those 
+From this output please remember SCREEN 0 information because it will be useful. In my case it will be `eDP1`.
+In case your above output is similar to what I got then please follow section 1.2 .
+But in case you see some VIRTUAL as disconnected like below then you can jump to Section  1.3
 
     VIRTUAL1 disconnected (normal left inverted right x axis y axis)
     VIRTUAL2 disconnected (normal left inverted right x axis y axis)
     VIRTUAL3 disconnected (normal left inverted right x axis y axis)
 
- Jump to #1.3
  
 ## 1.2 Making Virtual screen available.
 To enable virtual screens we need to do the following modification.
-first check if following file `/etc/X11/xorg.conf.d/20-intel.conf` exist in case that not please create
+First check if following file `/etc/X11/xorg.conf.d/20-intel.conf` exist in case that not please create and edit it.
 `mkdir /etc/X11/xorg.conf.d && vim /etc/X11/xorg.conf.d/20-intel.conf`
-and please add the following content inside
+Please make sure you have the following content.
 
     Section "Device"
         Identifier "intelgpu0"
@@ -61,10 +61,8 @@ and please add the following content inside
         Option "VirtualHeads" "5" # This is the number of Virtual screens you want to make available. You can change this value
     EndSection
 
-So please save the file and reboot to make the change appear.
+*Recommended* :  Reboot your Machine to make the change appear.
 Make sure Virtuals exists after reboot with `xrandr`.
-
-Then you can follow step #1.3
 
 ## 1.3 Setup your screen
 To make this first step I use the command `gtf` to get the right values to be used in the next steps
@@ -72,20 +70,40 @@ To make this first step I use the command `gtf` to get the right values to be us
   
 Read more at: [https://www.commandlinux.com/man-page/man1/gtf.1.html](https://www.commandlinux.com/man-page/man1/gtf.1.html)
 
-In my example I used this resolutions `1280 800` and refresh rate`60` 
+In my example I used the following resolutions `1280 800` and refresh rate`60` 
 `gtf 1280 800 60`
-and I got this value back
+and I got following values.
   
 
     # 1280x800 @ 60.00 Hz (GTF) hsync: 49.68 kHz; pclk: 83.46 MHz
       Modeline "1280x800_60.00"  83.46  1280 1344 1480 1680  800 801 804 828  -HSync +Vsync
-So now we need to add this information for the next step`"1280x800_60.00"  83.46  1280 1344 1480 1680  800 801 804 828  -HSync +Vsync`
+We need this information for the next step`"1280x800_60.00"  83.46  1280 1344 1480 1680  800 801 804 828  -HSync +Vsync`
 
 We're going to add new mode to xrandr
 `xrandr --newmode "1280x800_60.00"  83.46  1280 1344 1480 1680  800 801 804 828  -HSync +Vsync`
 
-After having done this we need to attach this to one of our Virtuals we create before to do so please proceed as following. In my example I am using VIRTUAL1.
+Now we're going to attach the resolution to the virtual screen of our choose. In my example I am using VIRTUAL1.
 `xrandr --addmode VIRTUAL1 1280x800_60.00`
 
-So now we're ready to active the Virtual1 and add it in the right side of our current screen. This information can be used from xrandr.
+So now we're ready to activate the VIRTUAL1 and add it on the right/left/above/below side of our current screen who is eDP1 (his information I have got from the xrandr command). With the flag --mode we are precising what resolution to use. Because you can repeat the steps before to add many other resolutions.
+
+In my case I want to attach resolution 1280 x 800 to my Virtual1 screen and I want it to be on the right Side of my current screen.
+
 `xrandr --output VIRTUAL1 --mode 1280x800_60.00 --right-of eDP1`
+
+So with this part you have activated your Screen extension.
+On the next step we're going to connect to them.
+
+# 2 How to connect with NoMachine to those Screen.
+
+As already stated in the beginning we can use the Free version to connect from 1 client to 1 server. If we would connect from multiple different devices to 1 server then it's recommended to use [NoMachine Enterprise Desktop](https://www.nomachine.com/enterprise-desktop).
+
+In my case I would like to connect from multiple devices to 1 server so I use NoMachine Enterprise Desktop.
+
+On the other devices from where I want to start the session I install, Free NoMachine version.
+In my case I use 1 Android device, 1 iPad and 1 Laptop with Linux on it. So in total 3 connection to my Laptop.
+ 
+From my Clients I connect to my Server and in the NoMachine settings I choose option 'Display' and only show the screen I would like to see on this current Client, and I also go to option 'Input' and tick Show remote mouse Cursor. 
+
+
+That's all I hope you will enjoy your Screen Virtual extension with NoMachine.
