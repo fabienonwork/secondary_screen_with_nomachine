@@ -94,6 +94,8 @@ In my case I want to attach resolution 1280 x 800 to my Virtual1 screen and I wa
 So with this part you have activated your Screen extension.
 On the next step we're going to connect to them.
 
+To avoid doing this steps every time when you reboot your machine I have created a small script that you can add in your rc.local
+
 # 2 How to connect with NoMachine to those Screen.
 
 As already stated in the beginning we can use the Free version to connect from 1 client to 1 server. If we would connect from multiple different devices to 1 server then it's recommended to use [NoMachine Enterprise Desktop](https://www.nomachine.com/enterprise-desktop).
