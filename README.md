@@ -107,3 +107,5 @@ From my Clients I connect to my Server and in the NoMachine settings I choose op
 
 
 That's all I hope you will enjoy your Screen Virtual extension with NoMachine.
+
+![Connection_with_nomachine](https://repository-images.githubusercontent.com/214096850/0554f780-ef99-11e9-8c9f-500185f85953)
