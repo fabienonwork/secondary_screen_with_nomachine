@@ -1,4 +1,4 @@
-![verified](https://badgen.net/badge/verified/ubunt16.04/green)
+![verified](https://badgen.net/badge/verified/ubuntu&nbsp;16.04/green)
 
 # Create Virtual Screens and connect with NoMachine to it :)
 
