@@ -101,7 +101,7 @@ As already stated in the beginning we can use the Free version to connect from 1
 In my case I would like to connect from multiple devices to 1 server so I use NoMachine Enterprise Desktop.
 
 On the other devices from where I want to start the session I install, Free NoMachine version.
-In my case I use 1 Android device, 1 iPad and 1 Laptop with Linux on it. So in total 3 connection to my Laptop.
+In my case I use 1 Android(left-of) device, 1 iPad(right-of). So in total 2 connection to my Laptop.
  
 From my Clients I connect to my Server and in the NoMachine settings I choose option 'Display' and only show the screen I would like to see on this current Client, and I also go to option 'Input' and tick Show remote mouse Cursor. 
 
